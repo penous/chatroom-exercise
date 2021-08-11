@@ -12,14 +12,17 @@ const port = 8080;
 const app = express();
 const clientPath = `${__dirname}/../client`;
 const server = createServer(app);
-const io = new Server(server);
-// const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origins: ['http://localhost:8080'],
+  },
+});
 
 app.use(express.static(clientPath));
 
 io.on('connection', (socket) => {
   console.log('Someone connected to the server');
-  console.log(socket);
+  // console.log(socket);
 });
 
 server.listen(port, () => {
